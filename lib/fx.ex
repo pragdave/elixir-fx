@@ -16,17 +16,14 @@ defmodule Fx do
   end
 
   defp _fx(arity, {{:., _, _} = fun, line, args}) do
-    IO.puts "remote function"
     placeholders = find_placeholders_in(args, [])
     generate_local_call(fun, line, args, placeholders, arity)
   end
 
   defp _fx(arity, expr) do
-    IO.inspect expr
-    res = quote do
+    quote do
       fn -> unquote(expr) end
     end
-    IO.inspect res
   end
 
   defp find_placeholders_in([], result), do: Enum.reverse(result)
@@ -51,16 +48,11 @@ defmodule Fx do
                 |> fill_in_missing_placeholders(arity)
                 |> Enum.map(fn name -> { name, [], Elixir } end)
 
-    IO.inspect named_placeholders
-    IO.inspect fn_params
-    IO.inspect args
     args = replace_placeholders_in(args, named_placeholders)
 
-    res = quote do
+    quote do
       fn unquote_splicing(fn_params) -> unquote(fun)(unquote_splicing(args)) end
     end
-    IO.puts(inspect res, pretty: true)
-    res
   end
 
 
