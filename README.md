@@ -8,17 +8,17 @@ in Elixir, this library lets you write `fx(&1+&2)`.
 
 However, unlike the `&` capture in Elixir, `fx` also supports
 
-Capturing functions with zero arity
+* Capturing functions with zero arity
 
-: `(fx IO.puts("Hello").()`
+  `(fx IO.puts("Hello").()`
 
-Faking out the arity
+* Faking out the arity
 
-: `Enum.each 1..3, fx(1, IO.puts("hello"))`
+  `Enum.each 1..3, fx(1, IO.puts("hello"))`
 
-Having non-sequential placeholders
+* Having non-sequential placeholders
 
-: ~~~
+  ~~~
   f = fx &2 + &4
   IO.puts f.(5,6,7,8)  #=> 14
   ~~~
