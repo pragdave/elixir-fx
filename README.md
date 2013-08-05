@@ -10,7 +10,13 @@ However, unlike the `&` capture in Elixir, `fx` also supports
 
 * Capturing functions with zero arity
 
-  `(fx IO.puts("Hello").()`
+
+  ~~~
+  (fx IO.puts("Hello").()   #=> Hello
+  
+  f = fx 42
+  IO.puts f.()              #=> 42
+  ~~~
 
 * Faking out the arity
 
